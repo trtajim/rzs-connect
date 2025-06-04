@@ -3,4 +3,37 @@
     <string name="sharedPreferences">rzsConnect</string>
     <string name="sfName">rzsConnectName</string>
 
+    <string-array name="classes">
+        <item>Select Class</item>
+        <item>Class: Ten</item>
+        <item>Class: Nine</item>
+        <item>Class: Eight</item>
+        <item>Class: Seven</item>
+        <item>Class: Six</item>
+        <item>Class: Five</item>
+        <item>Class: Four</item>
+        <item>Class: Three</item>
+    </string-array>
+
+    <string-array name="shifts">
+        <item>Select Shift</item>
+        <item>Shift: Morning</item>
+        <item>Shift: Day</item>
+
+    </string-array>
+
+
+    <string-array name="sectionMorning">
+        <item>Select Section</item>
+        <item>Section: A</item>
+        <item>Section: C</item>
+
+    </string-array>
+
+    <string-array name="sectionDay">
+        <item>Select Section</item>
+        <item>Section: B</item>
+        <item>Section: D</item>
+
+    </string-array>
 </resources>

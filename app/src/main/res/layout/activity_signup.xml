@@ -5,6 +5,311 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorTheme"
     tools:context=".authentication.SignupActivity">
 
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:layout_marginTop="10dp"
+        android:scaleType="center"
+        android:src="@drawable/baseline_back"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:tint="@color/white"
+        android:paddingLeft="10dp"
+
+        />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+        android:src="@mipmap/ic_launcher"
+        app:shapeAppearanceOverlay="@style/circularImageView"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
+
+        android:layout_marginTop="10dp"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Sign Up: "
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/glHori"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+
+        />
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/app_name"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivIcon"
+
+        android:layout_marginTop="10dp"/>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/glHori"
+        app:shapeAppearance="@style/topCornerRound"
+
+
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+
+            >
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edLayName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="40dp"
+                android:hint="Full Name"
+                app:boxBackgroundColor="@color/colorThemish"
+                app:boxStrokeColor="@color/colorTheme"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeWidthFocused="0.9dp"
+                app:layout_constraintTop_toTopOf="parent"
+
+
+                app:startIconDrawable="@drawable/baseline_person"
+
+                app:startIconTint="@color/colorTheme"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edLayNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Phone Number"
+                app:boxBackgroundColor="@color/colorThemish"
+                app:boxStrokeColor="@color/colorTheme"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeWidthFocused="0.9dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:layout_constraintTop_toBottomOf="@id/edLayName"
+                app:prefixText="+880"
+                app:startIconDrawable="@drawable/baseline_email"
+
+
+                app:startIconTint="@color/colorTheme"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edLayStudentId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Student Id"
+                app:boxBackgroundColor="@color/colorThemish"
+                app:boxStrokeColor="@color/colorTheme"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeWidthFocused="0.9dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="8"
+                app:layout_constraintTop_toBottomOf="@id/edLayNumber"
+                app:prefixText="127372"
+                app:startIconDrawable="@drawable/baseline_card"
+
+
+                app:startIconTint="@color/colorTheme"
+
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:maxLength="8" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spinnerShift"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+
+                android:background="@drawable/border_colored"
+                android:entries="@array/shifts"
+                app:layout_constraintEnd_toStartOf="@id/glVert"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edLayStudentId" />
+
+            <Spinner
+                android:id="@+id/spinnerClass"
+
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+
+
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+
+
+                android:background="@drawable/border_colored"
+                android:entries="@array/classes"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toEndOf="@id/glVert"
+                app:layout_constraintTop_toBottomOf="@+id/edLayStudentId"
+
+                />
+
+            <Spinner
+                android:id="@+id/spinnerSection"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+
+                android:background="@drawable/border_colored"
+                android:entries="@array/sectionMorning"
+                app:layout_constraintEnd_toStartOf="@id/glVert"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerShift" />
+
+            <EditText
+                android:id="@+id/edRoll"
+
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+
+
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_colored"
+
+
+                android:hint="Class Roll"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toEndOf="@id/glVert"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerShift"
+
+                />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glVert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/colorTheme"
+                android:text="Sign Up"
+
+                app:cornerRadius="5dp"
+
+                app:layout_constraintTop_toBottomOf="@id/spinnerSection"
+
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:text="Already Have An Account? "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:text="Log in"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorTheme"
+
+                    android:layout_marginLeft="5dp"
+                    />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
