@@ -87,8 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    protected void jsonObjReq(JSONObject jsonObject, final VolleyCallback callback) {
-        String url = getString(R.string.domain);
+    protected void jsonObjReq(String url, JSONObject jsonObject, final VolleyCallback callback) {
         startLoading();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
@@ -102,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         endLoading();
-                        alert("Internet Connection Error", "Maybe you are offline or using a weak connection.", null);
+                        alert("Internet Connection Error", error.toString(), null);
                     }
                 }
         );

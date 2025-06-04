@@ -90,8 +90,6 @@ public class SignupActivity extends BaseActivity {
             return false;
         }
 
-        iNumber = getIntFromEd(b.ednumber);
-        iStudentId = getIntFromEd(b.edStudentId);
         iRoll = getIntFromEd(b.edRoll);
 
         if (name.length() < 5 || number.length() != 10 || studentId.length() != 8 || iRoll == 0) {
@@ -115,8 +113,9 @@ public class SignupActivity extends BaseActivity {
                 KEY_SECTION, sSection
         );
 
+        String url = getString(R.string.domain)+"/apps/rzsConnect/authentication/signUp.php";
 
-        jsonObjReq(null, new VolleyCallback() {
+        jsonObjReq(url, jsonObject, new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject result) {
 
