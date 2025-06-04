@@ -1,15 +1,39 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Local properties (contains SDK paths, etc.)
 local.properties
+
+# IDE settings
+.idea/
+*.iml
+
+# Specific .idea config files (optional if you're versioning .idea/)
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Native builds
+.externalNativeBuild/
+.cxx/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Captures (screenshots or screen recordings)
+captures/
+
+# Keystore files (if applicable – adjust based on your signing setup)
+*.jks
+
+# APKs, AABs, logs
+*.apk
+*.ap_
+*.aab
+*.log
