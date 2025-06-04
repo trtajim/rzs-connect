@@ -1,13 +1,12 @@
 package com.rzsconnect.app.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
 import com.rzsconnect.app.R;
 import com.rzsconnect.app.databinding.ActivitySignupBinding;
-import com.rzsconnect.app.databinding.ActivitySplashBinding;
 import com.rzsconnect.app.utils.BaseActivity;
 
 public class SignupActivity extends BaseActivity {
@@ -19,6 +18,7 @@ public class SignupActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initBinding();
         spinnerHandleUi();
+        Onclicks();
 
     }
 
@@ -57,6 +57,15 @@ public class SignupActivity extends BaseActivity {
             }
         });
     }
+
+    private void Onclicks(){
+
+        b.tvLogin.setOnClickListener(v->{startActivity(new Intent(SignupActivity.this, LoginActivity.class));});
+        b.ivBack.setOnClickListener(v->{super.onBackPressed();});
+    }
+
+
+
 
 
 

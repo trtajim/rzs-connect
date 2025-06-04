@@ -1,5 +1,6 @@
 package com.rzsconnect.app.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.rzsconnect.app.databinding.ActivityLoginBinding;
@@ -14,10 +15,17 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initBinding();
+        Onclicks();
 
     }
     private void initBinding (){
         b = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
+    }
+
+    private void Onclicks(){
+
+        b.tvSignup.setOnClickListener(v->{startActivity(new Intent(LoginActivity.this, SignupActivity.class));});
+        b.ivBack.setOnClickListener(v->{super.onBackPressed();});
     }
 }
