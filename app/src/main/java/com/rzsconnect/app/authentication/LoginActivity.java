@@ -2,25 +2,22 @@ package com.rzsconnect.app.authentication;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.rzsconnect.app.databinding.ActivityLoginBinding;
+import com.rzsconnect.app.databinding.ActivitySplashBinding;
+import com.rzsconnect.app.utils.BaseActivity;
 
-import com.rzsconnect.app.R;
+public class LoginActivity extends BaseActivity {
 
-public class LoginActivity extends AppCompatActivity {
+    private ActivityLoginBinding b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        initBinding();
+
+    }
+    private void initBinding (){
+        b = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(b.getRoot());
     }
 }
