@@ -5,28 +5,143 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
 import com.rzsconnect.app.R;
 import com.rzsconnect.app.databinding.ActivitySignupBinding;
 import com.rzsconnect.app.utils.BaseActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class SignupActivity extends BaseActivity {
 
     private ActivitySignupBinding b;
+
+    private static final String DEFAULT_SHIFT = "Select Shift";
+    private static final String DEFAULT_CLASS = "Select Class";
+    private static final String DEFAULT_SECTION = "Select Section";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_NUMBER = "number";
+    private static final String KEY_STUDENT_ID = "studentId";
+    private static final String KEY_ROLL = "roll";
+    private static final String KEY_SHIFT = "shift";
+    private static final String KEY_CLASS = "class";
+    private static final String KEY_SECTION = "section";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initBinding();
         spinnerHandleUi();
-        Onclicks();
+        setupOnClicks();
 
     }
 
 
-    private void initBinding (){
+    private void initBinding() {
         b = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
     }
+
+
+    private void setupOnClicks() {
+
+        b.tvLogin.setOnClickListener(v -> {startActivity(new Intent(SignupActivity.this, LoginActivity.class));});
+        b.ivBack.setOnClickListener(v -> {super.onBackPressed();});
+
+        b.btnSubmit.setOnClickListener(v -> {handleSubmit();});
+    }
+
+
+    private void handleSubmit(){
+
+
+        if (isValid()) {
+            sendSignupRequest(
+
+                    getStringFromEd(b.edName),
+                    getStringFromEd(b.ednumber),
+                    getStringFromEd(b.edStudentId),
+                    getStringFromEd(b.edRoll),
+                    b.spinnerShift.getSelectedItem().toString(),
+                    b.spinnerClass.getSelectedItem().toString(),
+                    b.spinnerSection.getSelectedItem().toString());
+        }
+
+    }
+
+    private Boolean isValid(){
+
+        String name, number, studentId, roll, shift, sClass, sSection;
+        int iNumber, iStudentId, iRoll;
+
+        name = getStringFromEd(b.edName);
+        number = getStringFromEd(b.ednumber);
+        studentId = getStringFromEd(b.edStudentId);
+        roll = getStringFromEd(b.edRoll);
+        shift = b.spinnerShift.getSelectedItem().toString();
+        sClass = b.spinnerClass.getSelectedItem().toString();
+        sSection = b.spinnerSection.getSelectedItem().toString();
+
+
+        if (name.isEmpty() || number.isEmpty() || studentId.isEmpty() || roll.isEmpty() || shift.equals(DEFAULT_SHIFT) || sClass.equals(DEFAULT_CLASS) || sSection.equals(DEFAULT_SECTION)) {
+            toast("Fill all the Blanks");
+            return false;
+        }
+
+        iNumber = getIntFromEd(b.ednumber);
+        iStudentId = getIntFromEd(b.edStudentId);
+        iRoll = getIntFromEd(b.edRoll);
+
+        if (name.length() < 5 || number.length() != 10 || studentId.length() != 8 || iRoll == 0) {
+            toast("Invalid Input");
+            return false;
+        }
+
+        return true;
+
+    }
+    private void sendSignupRequest(String name, String number, String studentId, String roll, String shift, String sClass, String sSection) {
+
+
+        JSONObject jsonObject = jsonObjMaker(
+                KEY_NAME, name,
+                KEY_NUMBER, number,
+                KEY_STUDENT_ID, studentId,
+                KEY_ROLL, roll,
+                KEY_SHIFT, shift,
+                KEY_CLASS, sClass,
+                KEY_SECTION, sSection
+        );
+
+
+        jsonObjReq(null, new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+
+                onSuccessRequest(result);
+            }
+        });
+
+    }
+
+    private void onSuccessRequest(JSONObject jsonObject) {
+        try {
+            String status = jsonObject.getString("status");
+            if (status.equals("success")) {
+
+                alert("Request Received", "Your request for creating an account is pending, please come after a while", null);
+            } else {
+                alert("Server Error", "It's an internal error. We are working on it", null);
+
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     private void spinnerHandleUi() {
         String[] shifts = getResources().getStringArray(R.array.shifts);
@@ -40,11 +155,11 @@ public class SignupActivity extends BaseActivity {
                 ArrayAdapter<String> sectionAdapter;
 
                 if (selectedShift.equals("Shift: Morning")) {
-                    sectionAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, morning);
+                    sectionAdapter = new ArrayAdapter<>(SignupActivity.this, android.R.layout.simple_spinner_item, morning);
                 } else if (selectedShift.equals("Shift: Day")) {
-                    sectionAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, day);
+                    sectionAdapter = new ArrayAdapter<>(SignupActivity.this, android.R.layout.simple_spinner_item, day);
                 } else {
-                    sectionAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, morning);
+                    sectionAdapter = new ArrayAdapter<>(SignupActivity.this, android.R.layout.simple_spinner_item, morning);
                 }
 
                 sectionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -57,17 +172,6 @@ public class SignupActivity extends BaseActivity {
             }
         });
     }
-
-    private void Onclicks(){
-
-        b.tvLogin.setOnClickListener(v->{startActivity(new Intent(SignupActivity.this, LoginActivity.class));});
-        b.ivBack.setOnClickListener(v->{super.onBackPressed();});
-    }
-
-
-
-
-
 
 
 }

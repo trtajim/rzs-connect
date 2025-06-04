@@ -123,6 +123,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textPersonName" />
@@ -150,6 +151,8 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ednumber"
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -180,6 +183,8 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edStudentId"
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -267,6 +272,7 @@
 
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 

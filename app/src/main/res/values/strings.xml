@@ -2,6 +2,7 @@
     <string name="app_name">RZS Connect</string>
     <string name="sharedPreferences">rzsConnect</string>
     <string name="sfName">rzsConnectName</string>
+    <string name="domain">https://trtajim.xyz</string>
 
     <string-array name="classes">
         <item>Select Class</item>

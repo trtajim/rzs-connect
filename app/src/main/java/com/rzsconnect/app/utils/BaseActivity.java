@@ -1,10 +1,21 @@
 package com.rzsconnect.app.utils;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
-
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.rzsconnect.app.R;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -29,6 +40,110 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     }
+
+    protected String getStringFromEd(EditText editText){
+        return editText.getText().toString().trim();
+    }
+
+    protected int getIntFromEd(EditText editText){
+        return Integer.parseInt(editText.getText().toString().trim());
+    }
+
+    protected void toast(String text){
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void alert(String title, String message, Runnable runnable){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(title).setMessage(message);
+        if (runnable!=null){
+            dialog.setPositiveButton("Agree", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    runnable.run();
+                }
+            }).setNegativeButton("Deny", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }else {
+            dialog.setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }
+
+        dialog.show();
+
+    }
+
+
+    public interface VolleyCallback {
+        void onSuccess(JSONObject result);
+
+    }
+
+    protected void jsonObjReq(JSONObject jsonObject, final VolleyCallback callback) {
+        String url = getString(R.string.domain);
+        startLoading();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                callback.onSuccess(response);
+                endLoading();
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        endLoading();
+                        alert("Internet Connection Error", "Maybe you are offline or using a weak connection.", null);
+                    }
+                }
+        );
+
+        requestQueue.add(jsonObjectRequest);
+
+
+    }
+
+    protected JSONObject jsonObjMaker(String... keyValuePairs) {
+        JSONObject jsonObject = new JSONObject();
+
+        if (keyValuePairs.length % 2 != 0) {
+            throw new IllegalArgumentException("Odd number of arguments. Keys and values must be in pairs.");
+        }
+
+        try {
+            for (int i = 0; i < keyValuePairs.length; i += 2) {
+                String key = keyValuePairs[i];
+                String value = keyValuePairs[i + 1];
+                jsonObject.put(key, value);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return jsonObject;
+    }
+
+    AlertDialog loadingAlert;
+
+    protected void startLoading(){
+        loadingAlert = new AlertDialog.Builder(this).setView(new ProgressBar(this)).setCancelable(false).show();
+    }
+
+    protected void endLoading(){
+        if (loadingAlert != null && loadingAlert.isShowing()){
+            loadingAlert.dismiss();
+        }
+    }
+
 
 
 }
