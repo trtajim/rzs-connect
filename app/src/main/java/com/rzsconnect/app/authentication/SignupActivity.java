@@ -132,7 +132,7 @@ public class SignupActivity extends BaseActivity {
 
                 alert("Request Received", "Your request for creating an account is pending, please come after a while", null);
             } else {
-                alert("Server Error", "It's an internal error. We are working on it", null);
+                alert("Notice ", status, null);
 
             }
         } catch (JSONException e) {
