@@ -1,12 +1,11 @@
 package com.rzsconnect.app.splash;
 
 import android.content.Intent;
+import static com.rzsconnect.app.utils.CONSTANTS.*;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-
 import com.rzsconnect.app.MainActivity;
-import com.rzsconnect.app.R;
 import com.rzsconnect.app.authentication.LoginActivity;
 import com.rzsconnect.app.databinding.ActivitySplashBinding;
 import com.rzsconnect.app.utils.BaseActivity;
@@ -29,7 +28,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private boolean isFirstLaunch(){
-        String name = getsSharedPreferences(getString(R.string.sfName));
+        String name = getsSharedPreferences(KEY_NAME);
         return name == null;
     }
     private void afterSplash(int delayTime){

@@ -1,6 +1,7 @@
 package com.rzsconnect.app.authentication;
 
 import android.content.Intent;
+import static com.rzsconnect.app.utils.CONSTANTS.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,16 +18,6 @@ public class SignupActivity extends BaseActivity {
 
     private ActivitySignupBinding b;
 
-    private static final String DEFAULT_SHIFT = "Select Shift";
-    private static final String DEFAULT_CLASS = "Select Class";
-    private static final String DEFAULT_SECTION = "Select Section";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_NUMBER = "number";
-    private static final String KEY_STUDENT_ID = "studentId";
-    private static final String KEY_ROLL = "roll";
-    private static final String KEY_SHIFT = "shift";
-    private static final String KEY_CLASS = "class";
-    private static final String KEY_SECTION = "section";
 
 
     @Override
@@ -113,7 +104,7 @@ public class SignupActivity extends BaseActivity {
                 KEY_SECTION, sSection
         );
 
-        String url = getString(R.string.domain)+"/apps/rzsConnect/authentication/signUp.php";
+        String url = DOMAIN+"authentication/signUp.php";
 
         jsonObjReq(url, jsonObject, new VolleyCallback() {
             @Override
