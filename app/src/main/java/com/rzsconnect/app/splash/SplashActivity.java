@@ -5,10 +5,15 @@ import static com.rzsconnect.app.utils.CONSTANTS.*;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+
 import com.rzsconnect.app.MainActivity;
 import com.rzsconnect.app.authentication.LoginActivity;
 import com.rzsconnect.app.databinding.ActivitySplashBinding;
 import com.rzsconnect.app.utils.BaseActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class SplashActivity extends BaseActivity {
     private ActivitySplashBinding b;
@@ -17,7 +22,9 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         initBinding();
         super.onCreate(savedInstanceState);
-        afterSplash(4000);
+        checkLoggedIn();
+
+
 
     }
 
@@ -27,20 +34,51 @@ public class SplashActivity extends BaseActivity {
         setContentView(b.getRoot());
     }
 
+    private void checkLoggedIn(){
+        if (isFirstLaunch()){
+            delayAndSendToLogin();
+        }else {
+            getNoticesAndSendToDash();
+        }
+    }
+
     private boolean isFirstLaunch(){
         String name = getsSharedPreferences(KEY_NAME);
         return name == null;
     }
-    private void afterSplash(int delayTime){
 
-        new Handler(Looper.getMainLooper()).postDelayed(()->{
-
-            if (isFirstLaunch())startActivity(new Intent(this, LoginActivity.class));
-            else startActivity(new Intent(this, MainActivity.class));
+    private void delayAndSendToLogin(){
+        delayTime(4000, ()->{
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
+        });
+    }
 
-        }, delayTime);
 
+    private void getNoticesAndSendToDash(){
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = jsonObjMaker(
+                KEY_SHIFT, getsSharedPreferences(KEY_SHIFT).trim(),
+                KEY_CLASS, getsSharedPreferences(KEY_CLASS).trim(),
+                KEY_SECTION, getsSharedPreferences(KEY_SECTION).trim(),
+                KEY_ROLL, getsSharedPreferences(KEY_ROLL).trim()
+
+        );
+        jsonArray.put(jsonObject);
+
+        String url = DOMAIN+"utils/notices.php";
+
+        jsonArrayReq(url, jsonArray, new VolleyCallbackArray() {
+            @Override
+            public void onSuccess(JSONArray result) {
+
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                intent.putExtra("notices", result.toString());
+                startActivity(intent);
+                finish();
+
+            }
+        });
     }
 
 

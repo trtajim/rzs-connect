@@ -3,6 +3,8 @@ package com.rzsconnect.app.utils;
 import static com.rzsconnect.app.utils.CONSTANTS.*;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -13,9 +15,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.rzsconnect.app.R;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -94,6 +99,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         void onSuccess(JSONObject result);
 
     }
+    public interface VolleyCallbackArray {
+        void onSuccess(JSONArray result);
+
+    }
 
     protected void jsonObjReq(String url, JSONObject jsonObject, final VolleyCallback callback) {
         startLoading();
@@ -118,6 +127,30 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     }
+
+
+protected void jsonArrayReq(String url, JSONArray jsonArray, final VolleyCallbackArray volleyCallbackArray){
+    startLoading();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, jsonArray, new Response.Listener<JSONArray>() {
+        @Override
+        public void onResponse(JSONArray response) {
+            volleyCallbackArray.onSuccess(response);
+            endLoading();
+
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            endLoading();
+            alert("Internet Connection Error", error.toString(), null);
+        }
+    });
+
+    requestQueue.add(jsonArrayRequest);
+
+}
+
 
     protected JSONObject jsonObjMaker(String... keyValuePairs) {
         JSONObject jsonObject = new JSONObject();
@@ -159,6 +192,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Boolean isPassword(String password){
         return password.length() > 5 && password.length() < 19;
 
+    }
+
+    protected void delayTime(int time, Runnable toRun){
+        new Handler(Looper.getMainLooper()).postDelayed(toRun, time);
     }
 
 
