@@ -1,7 +1,9 @@
 package com.rzsconnect.app.utils;
 
+import static com.rzsconnect.app.utils.CONSTANTS.*;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -21,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected String getsSharedPreferences(String keyWord){
         SharedPreferences sharedPreferences;
-        sharedPreferences = getSharedPreferences(getString(R.string.sharedPreferences), MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME, MODE_PRIVATE);
 
         String data = sharedPreferences.getString(keyWord, null);
 
@@ -32,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void editSharedPreferences(String keyWord, String value) {
         SharedPreferences sharedPreferences;
-        sharedPreferences = getSharedPreferences(getString(R.string.sharedPreferences), MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME, MODE_PRIVATE);
 
         SharedPreferences.Editor editor  = sharedPreferences.edit();
         editor.putString(keyWord, value);
@@ -43,6 +45,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected String getStringFromEd(EditText editText){
         return editText.getText().toString().trim();
+    }
+
+    protected void clearEditText(EditText editText){
+        editText.setText("");
+        editText.clearFocus();
+
     }
 
     protected int getIntFromEd(EditText editText){
@@ -115,21 +123,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
 
         if (keyValuePairs.length % 2 != 0) {
-            throw new IllegalArgumentException("Odd number of arguments. Keys and values must be in pairs.");
+            toast("Internal error: mismatched key-value pairs.");
+            return null;
         }
 
-        try {
-            for (int i = 0; i < keyValuePairs.length; i += 2) {
-                String key = keyValuePairs[i];
-                String value = keyValuePairs[i + 1];
+        for (int i = 0; i < keyValuePairs.length; i += 2) {
+            String key = keyValuePairs[i];
+            String value = keyValuePairs[i + 1];
+            try {
                 jsonObject.put(key, value);
+            } catch (JSONException e) {
+                Log.e("BaseActivity", "JSON build error: key=" + key, e);
+                toast("Internal error occurred while preparing data.");
+                return null;
             }
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
         }
 
         return jsonObject;
     }
+
 
     AlertDialog loadingAlert;
 
@@ -141,6 +153,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (loadingAlert != null && loadingAlert.isShowing()){
             loadingAlert.dismiss();
         }
+    }
+
+
+    protected Boolean isPassword(String password){
+        return password.length() > 5 && password.length() < 19;
+
     }
 
 

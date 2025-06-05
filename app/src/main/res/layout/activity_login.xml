@@ -123,6 +123,8 @@
                 app:boxBackgroundColor="@color/colorThemish"
                 app:boxStrokeWidthFocused="0.9dp"
                 app:prefixText="+880"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
 
 
                 >
@@ -130,6 +132,7 @@
                     android:id="@+id/edNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:maxLength="10"
 
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
