@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.rzsconnect.app.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -196,6 +198,10 @@ protected void jsonArrayReq(String url, JSONArray jsonArray, final VolleyCallbac
 
     protected void delayTime(int time, Runnable toRun){
         new Handler(Looper.getMainLooper()).postDelayed(toRun, time);
+    }
+
+    protected void loadImage (String url, ImageView target){
+        Picasso.get().load(url).placeholder(R.drawable.pic).into(target);
     }
 
 

@@ -7,6 +7,8 @@ import static com.rzsconnect.app.utils.CONSTANTS.*;
 import com.rzsconnect.app.adapters.RecyclerHomeAdapter;
 import com.rzsconnect.app.databinding.ActivityMainBinding;
 import com.rzsconnect.app.utils.BaseActivity;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -17,8 +19,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initBinding();
-        setUpTexts();
+        setUpEssentialsUi();
         handleOnClickListeners();
+
         try {
             setUpRecycler();
         } catch (JSONException e) {
@@ -34,9 +37,10 @@ public class MainActivity extends BaseActivity {
         setContentView(b.getRoot());
     }
 
-    private void setUpTexts(){
+    private void setUpEssentialsUi(){
 
         b.tvName.setText(getsSharedPreferences(KEY_NAME));
+        loadImage(getsSharedPreferences(KEY_PIC), b.ivIcon);
     }
 
     private void setUpRecycler()throws JSONException {

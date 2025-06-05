@@ -46,6 +46,8 @@ public class ProfileActivity extends BaseActivity {
         b.tvSection.setText(sSection);
         b.tvRoll.setText("Roll: "+sRoll);
 
+        loadImage(getsSharedPreferences(KEY_PIC), b.ivIcon);
+
 
 
 

@@ -21,5 +21,7 @@ public class CONSTANTS {
     public static final String KEY_TITLE = "title";
     public static final String KEY_BODY = "body";
     public static final String KEY_SENDER = "sender";
+    public static final String KEY_PIC = "pic";
+
 
 }

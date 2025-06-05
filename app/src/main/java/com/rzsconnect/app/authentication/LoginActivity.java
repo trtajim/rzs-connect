@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity {
 
     private void loginSuccess(JSONObject jsonObject) throws JSONException {
         Log.d("loginSuccessJson", jsonObject.toString());
-        String name, number, password, studentId, shift, sClass, sSection, roll;
+        String name, number, password, studentId, shift, sClass, sSection, roll, pic;
 
          name = jsonObject.getString(KEY_NAME);
          number = jsonObject.getString(KEY_NUMBER);
@@ -100,15 +100,16 @@ public class LoginActivity extends BaseActivity {
          sClass = jsonObject.getString(KEY_CLASS);
          sSection = jsonObject.getString(KEY_SECTION);
          roll = jsonObject.getString(KEY_ROLL);
+         pic = jsonObject.getString(KEY_PIC);
 
-         storeDataAndSendToDash(name, number, password, studentId, shift, sClass, sSection, roll);
+         storeDataAndSendToDash(name, number, password, studentId, shift, sClass, sSection, roll, pic);
 
 
 
     }
 
 
-    private void storeDataAndSendToDash(String name, String number, String password, String studentId, String shift, String sClass, String sSection, String roll){
+    private void storeDataAndSendToDash(String name, String number, String password, String studentId, String shift, String sClass, String sSection, String roll,String pic){
 
         editSharedPreferences(KEY_NAME, name);
         editSharedPreferences(KEY_NUMBER, number);
@@ -118,6 +119,7 @@ public class LoginActivity extends BaseActivity {
         editSharedPreferences(KEY_CLASS, sClass);
         editSharedPreferences(KEY_SECTION, sSection);
         editSharedPreferences(KEY_ROLL, roll);
+        editSharedPreferences(KEY_PIC, pic);
 
 
         getNoticesAndSendToDash();
