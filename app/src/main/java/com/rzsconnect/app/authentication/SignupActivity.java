@@ -52,6 +52,7 @@ public class SignupActivity extends BaseActivity {
             sendSignupRequest(
 
                     getStringFromEd(b.edName),
+                    getStringFromEd(b.edPassword),
                     getStringFromEd(b.ednumber),
                     getStringFromEd(b.edStudentId),
                     getStringFromEd(b.edRoll),
@@ -64,26 +65,27 @@ public class SignupActivity extends BaseActivity {
 
     private Boolean isValid(){
 
-        String name, number, studentId, roll, shift, sClass, sSection;
+        String name, number, studentId, roll, shift, sClass, sSection, sPassword;
         int iNumber, iStudentId, iRoll;
 
         name = getStringFromEd(b.edName);
         number = getStringFromEd(b.ednumber);
         studentId = getStringFromEd(b.edStudentId);
+        sPassword = getStringFromEd(b.edPassword);
         roll = getStringFromEd(b.edRoll);
         shift = b.spinnerShift.getSelectedItem().toString();
         sClass = b.spinnerClass.getSelectedItem().toString();
         sSection = b.spinnerSection.getSelectedItem().toString();
 
 
-        if (name.isEmpty() || number.isEmpty() || studentId.isEmpty() || roll.isEmpty() || shift.equals(DEFAULT_SHIFT) || sClass.equals(DEFAULT_CLASS) || sSection.equals(DEFAULT_SECTION)) {
+        if (sPassword.isEmpty() || name.isEmpty() || number.isEmpty() || studentId.isEmpty() || roll.isEmpty() || shift.equals(DEFAULT_SHIFT) || sClass.equals(DEFAULT_CLASS) || sSection.equals(DEFAULT_SECTION)) {
             toast("Fill all the Blanks");
             return false;
         }
 
         iRoll = getIntFromEd(b.edRoll);
 
-        if (name.length() < 5 || number.length() != 10 || studentId.length() != 8 || iRoll == 0) {
+        if (name.length() < 5 || number.length() != 10 || studentId.length() != 8 || iRoll == 0 || (!isPassword(sPassword))) {
             toast("Invalid Input");
             return false;
         }
@@ -91,7 +93,7 @@ public class SignupActivity extends BaseActivity {
         return true;
 
     }
-    private void sendSignupRequest(String name, String number, String studentId, String roll, String shift, String sClass, String sSection) {
+    private void sendSignupRequest(String name, String password, String number, String studentId, String roll, String shift, String sClass, String sSection) {
 
 
         JSONObject jsonObject = jsonObjMaker(
@@ -101,7 +103,8 @@ public class SignupActivity extends BaseActivity {
                 KEY_ROLL, roll,
                 KEY_SHIFT, shift,
                 KEY_CLASS, sClass,
-                KEY_SECTION, sSection
+                KEY_SECTION, sSection,
+                KEY_PASSWORD, password
         );
 
         String url = DOMAIN+"authentication/signUp.php";

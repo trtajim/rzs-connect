@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:hint="Full Name"
                 app:boxBackgroundColor="@color/colorThemish"
                 app:boxStrokeColor="@color/colorTheme"
@@ -271,7 +271,34 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edLayPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
+                android:hint="Password"
+                app:boxBackgroundColor="@color/colorThemish"
+                app:boxStrokeColor="@color/colorTheme"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeWidthFocused="0.9dp"
+                app:layout_constraintTop_toBottomOf="@id/edRoll"
+
+
+                app:startIconDrawable="@drawable/baseline_password"
+
+                app:startIconTint="@color/colorTheme"
+
+                android:layout_marginTop="5dp"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="16"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
@@ -283,7 +310,7 @@
 
                 app:cornerRadius="5dp"
 
-                app:layout_constraintTop_toBottomOf="@id/spinnerSection"
+                app:layout_constraintTop_toBottomOf="@id/edLayPassword"
 
                 />
 
