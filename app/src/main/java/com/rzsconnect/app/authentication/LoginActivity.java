@@ -6,7 +6,10 @@ import android.util.Log;
 import static com.rzsconnect.app.utils.CONSTANTS.*;
 import com.rzsconnect.app.MainActivity;
 import com.rzsconnect.app.databinding.ActivityLoginBinding;
+import com.rzsconnect.app.splash.SplashActivity;
 import com.rzsconnect.app.utils.BaseActivity;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,9 +119,8 @@ public class LoginActivity extends BaseActivity {
         editSharedPreferences(KEY_SECTION, sSection);
         editSharedPreferences(KEY_ROLL, roll);
 
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+
+        getNoticesAndSendToDash();
     }
 
     @Override
@@ -126,5 +128,32 @@ public class LoginActivity extends BaseActivity {
         super.onResume();
         clearEditText(b.edPass);
         clearEditText(b.edNumber);
+    }
+
+    private void getNoticesAndSendToDash(){
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = jsonObjMaker(
+                KEY_SHIFT, getsSharedPreferences(KEY_SHIFT).trim(),
+                KEY_CLASS, getsSharedPreferences(KEY_CLASS).trim(),
+                KEY_SECTION, getsSharedPreferences(KEY_SECTION).trim(),
+                KEY_ROLL, getsSharedPreferences(KEY_ROLL).trim()
+
+        );
+        jsonArray.put(jsonObject);
+
+        String url = DOMAIN+"utils/notices.php";
+
+        jsonArrayReq(url, jsonArray, new VolleyCallbackArray() {
+            @Override
+            public void onSuccess(JSONArray result) {
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("notices", result.toString());
+                startActivity(intent);
+                finish();
+
+            }
+        });
     }
 }
