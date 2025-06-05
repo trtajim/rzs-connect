@@ -11,4 +11,10 @@
         <item name="cornerSizeTopRight">20dp</item>
     </style>
 
+    <style name="bottomCornerRound">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+    </style>
+
 </resources>

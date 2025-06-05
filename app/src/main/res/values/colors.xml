@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorTheme">#009688</color>
     <color name="colorThemish">#DDF4F2</color>
+    <color name="colorThemishDark">#8FD7D0</color>
+    <color name="colorAlikeTheme">#02B1A0</color>
+    <color name="whitish">#E6E6E6</color>
 </resources>
