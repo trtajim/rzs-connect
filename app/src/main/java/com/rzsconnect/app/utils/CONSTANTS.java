@@ -18,4 +18,8 @@ public class CONSTANTS {
     public static final String STATUS_SUCCESS = "success";
     public static final String STATUS_PENDING = "pending";
     public static final String SHARED_PREFERENCE_NAME = "rzsConnect";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_BODY = "body";
+    public static final String KEY_SENDER = "sender";
+
 }

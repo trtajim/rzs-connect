@@ -1,19 +1,53 @@
 package com.rzsconnect.app;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class MainActivity extends AppCompatActivity {
+import static com.rzsconnect.app.utils.CONSTANTS.*;
+
+import com.rzsconnect.app.adapters.RecyclerHomeAdapter;
+import com.rzsconnect.app.databinding.ActivityMainBinding;
+import com.rzsconnect.app.utils.BaseActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+public class MainActivity extends BaseActivity {
+    private ActivityMainBinding b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        initBinding();
+        setUpTexts();
+        try {
 
+            setUpRecycler();
+
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+    private void initBinding(){
+        b = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(b.getRoot());
+    }
+
+    private void setUpTexts(){
+
+        b.tvName.setText(getsSharedPreferences(KEY_NAME));
+    }
+
+    private void setUpRecycler()throws JSONException {
+        JSONArray jsonArray = new JSONArray(getIntent().getStringExtra("notices"));
+        RecyclerHomeAdapter recyclerHomeAdapter = new RecyclerHomeAdapter(this,  jsonArray);
+        b.recyclerMain.setAdapter(recyclerHomeAdapter);
+        b.recyclerMain.setLayoutManager(new LinearLayoutManager(this));
     }
 }
