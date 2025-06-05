@@ -2,11 +2,11 @@ package com.rzsconnect.app.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import static com.rzsconnect.app.utils.CONSTANTS.*;
 import com.rzsconnect.app.MainActivity;
 import com.rzsconnect.app.databinding.ActivityLoginBinding;
 import com.rzsconnect.app.utils.BaseActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,10 +71,10 @@ public class LoginActivity extends BaseActivity {
 
                     }else if (status.equals(STATUS_PENDING)){
 
-                        alert("Notice", "Your request for account creation is still pending, please come back later", ()->{});
+                        alert("Notice", "Your request for account creation is still pending, please come back later", null);
                     }else {
                         //wrong credentials
-                        alert("Invalid Credentials", "Check your number, password and try again", ()->{});
+                        alert("Invalid Credentials", "Check your number, password and try again", null);
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity {
 
 
     private void loginSuccess(JSONObject jsonObject) throws JSONException {
+        Log.d("loginSuccessJson", jsonObject.toString());
         String name, number, password, studentId, shift, sClass, sSection, roll;
 
          name = jsonObject.getString(KEY_NAME);
