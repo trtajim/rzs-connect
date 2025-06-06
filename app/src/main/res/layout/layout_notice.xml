@@ -15,6 +15,72 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:text="Notice Title goes Here"
+            android:textStyle="bold"
+            android:textSize="18dp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12 May, 2025"
+            android:textStyle="bold"
+            android:textColor="@color/blackish"
+
+            app:layout_constraintTop_toBottomOf="@+id/titleText"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agamikal Sokal 7 tay class shuru hobe. sobaike uposthit thakar jonno ahoban kora jacche"
+            app:layout_constraintTop_toBottomOf="@id/dateText"
+            android:textSize="17dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/senderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- TR Tajim"
+            android:textColor="@color/black"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bodyText"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@color/blackish"
+            app:layout_constraintTop_toBottomOf="@id/senderText"
+
+            android:layout_marginTop="10dp"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Title Here"
 
             app:layout_constraintTop_toTopOf="parent"
@@ -40,6 +106,7 @@
 
             app:layout_constraintTop_toBottomOf="@id/bodyText"
             app:layout_constraintStart_toStartOf="parent"/>
+-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
