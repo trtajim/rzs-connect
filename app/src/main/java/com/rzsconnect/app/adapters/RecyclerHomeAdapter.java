@@ -52,7 +52,7 @@ public class RecyclerHomeAdapter extends RecyclerView.Adapter<RecyclerHomeAdapte
             String date = jsonObject.getString(KEY_DATE);
             holder.binding.titleText.setText(title);
             holder.binding.bodyText.setText(body);
-            holder.binding.senderText.setText(sender);
+            holder.binding.senderText.setText("- "+sender);
             holder.binding.dateText.setText(date);
         } catch (JSONException e) {
             throw new RuntimeException(e);
