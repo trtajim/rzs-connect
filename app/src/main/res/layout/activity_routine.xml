@@ -7,4 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".RoutineActivity">
 
+    <TextView
+        android:id="@+id/tvRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suggested Routines"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerRoutine"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/tvRoutine"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

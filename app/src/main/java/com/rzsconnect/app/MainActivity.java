@@ -7,8 +7,6 @@ import static com.rzsconnect.app.utils.CONSTANTS.*;
 import com.rzsconnect.app.adapters.RecyclerHomeAdapter;
 import com.rzsconnect.app.databinding.ActivityMainBinding;
 import com.rzsconnect.app.utils.BaseActivity;
-import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -54,5 +52,11 @@ public class MainActivity extends BaseActivity {
         b.linProfile.setOnClickListener(v->{
             startActivity(new Intent(this, ProfileActivity.class));
         });
+
+        b.linRoutine.setOnClickListener(v->{
+            startActivity(new Intent(this, RoutineActivity.class));
+        });
+
+
     }
 }
