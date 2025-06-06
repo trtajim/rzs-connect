@@ -39,7 +39,7 @@ public class RoutineActivity extends BaseActivity {
 
         );
         jsonArray.put(jsonObject);
-        jsonArrayReq(url, jsonArray, new VolleyCallbackArray() {
+        jsonArrayReq(true, url, jsonArray, new VolleyCallbackArray() {
             @Override
             public void onSuccess(JSONArray result) {
                 setupRecycler(result);

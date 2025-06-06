@@ -109,7 +109,7 @@ public class SignupActivity extends BaseActivity {
 
         String url = DOMAIN+"authentication/signUp.php";
 
-        jsonObjReq(url, jsonObject, new VolleyCallback() {
+        jsonObjReq(true, url, jsonObject, new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject result) {
 

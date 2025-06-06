@@ -63,7 +63,7 @@ public class LoginActivity extends BaseActivity {
         );
         String url = DOMAIN+"authentication/login.php";
 
-        jsonObjReq(url, jsonObject, new VolleyCallback() {
+        jsonObjReq(true, url, jsonObject, new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -145,7 +145,7 @@ public class LoginActivity extends BaseActivity {
 
         String url = DOMAIN+"utils/notices.php";
 
-        jsonArrayReq(url, jsonArray, new VolleyCallbackArray() {
+        jsonArrayReq(true, url, jsonArray, new VolleyCallbackArray() {
             @Override
             public void onSuccess(JSONArray result) {
 

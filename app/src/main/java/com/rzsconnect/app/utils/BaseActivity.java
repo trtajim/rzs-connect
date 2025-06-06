@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -106,8 +107,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    protected void jsonObjReq(String url, JSONObject jsonObject, final VolleyCallback callback) {
-        startLoading();
+    protected void jsonObjReq(Boolean loading, String url, JSONObject jsonObject, final VolleyCallback callback) {
+        if (loading) startLoading();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -131,9 +132,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-protected void jsonArrayReq(String url, JSONArray jsonArray, final VolleyCallbackArray volleyCallbackArray){
-    startLoading();
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+protected void jsonArrayReq(Boolean loading,String url, JSONArray jsonArray, final VolleyCallbackArray volleyCallbackArray){
+    if (loading) startLoading();
+    RequestQueue requestQueue = Volley.newRequestQueue(this);
     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, jsonArray, new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
@@ -180,8 +181,19 @@ protected void jsonArrayReq(String url, JSONArray jsonArray, final VolleyCallbac
 
     AlertDialog loadingAlert;
 
-    protected void startLoading(){
-        loadingAlert = new AlertDialog.Builder(this).setView(new ProgressBar(this)).setCancelable(false).show();
+    protected void startLoading() {
+        ProgressBar progressBar = new ProgressBar(this);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(progressBar)
+                .setCancelable(false)
+                .create();
+
+        dialog.show();
+
+        dialog.getWindow().setLayout(175, 175);
+
+        loadingAlert = dialog;
     }
 
     protected void endLoading(){

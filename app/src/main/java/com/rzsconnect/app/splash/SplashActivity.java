@@ -68,7 +68,7 @@ public class SplashActivity extends BaseActivity {
 
         String url = DOMAIN+"utils/notices.php";
 
-        jsonArrayReq(url, jsonArray, new VolleyCallbackArray() {
+        jsonArrayReq(false, url, jsonArray, new VolleyCallbackArray() {
             @Override
             public void onSuccess(JSONArray result) {
 
